@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { CSSTransition } from 'react-transition-group';
 import "../css/login.css";
+import Err from './Err'
 export default function Login(props){
     const [value,setValue]=useState("");
     const [pswd,setPswd]=useState("");
     const [action,setAction]=useState(true);
+    const [err,setErr]=useState(false);
     function handleinput(e){
         setValue(e.target.value);
     }
@@ -13,7 +15,11 @@ export default function Login(props){
     }
     function handlesubmit(e){
         e.preventDefault();
+        if(value==="premchand" && pswd==="ppp")
         props.setLog(true);
+        else{
+            setErr("password or username are incorrect")
+        }
 
     }
     console.log(value);
@@ -25,6 +31,7 @@ export default function Login(props){
                     <div className={!action?"switch-btn active":"switch-btn"} onClick={()=>setAction(false)}>Sign Up</div> 
                 </div>
                 
+            {err && <Err text={err}></Err>}
             <CSSTransition in={action} timeout={300} classNames="slideleft" unmountOnExit >
                 <div className="box">
                 <h1 style={{textAlign:"center"}}>Login</h1>

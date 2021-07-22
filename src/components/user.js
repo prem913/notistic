@@ -6,7 +6,7 @@ import Err from "./Err";
 import Note from './Note'
 import {Fetchdata,Adddata, Deletedata} from '../backend/fetchdata';
 
-function User (){
+function User (props){
     const [notes,setNotes] = useState([]);
     const [err,setErr]=useState('');
 
@@ -14,7 +14,9 @@ useEffect(()=>{
     console.log("mou")
     Fetchdata(setNotes,setErr);
 },[])
-
+    function handlelogout(){
+        props.setLog(false);
+    }
     async function handleaddnotes(des){
         setErr("Adding");
         let date=new Date().toLocaleString();
@@ -35,7 +37,7 @@ useEffect(()=>{
     }
     return(
         <>
-        <Header />
+        <Header handlelogout={handlelogout} showuser={true}/>
         <Addnotes addnotes={handleaddnotes}/>
         <Err text={err} />
         <Notes> 
