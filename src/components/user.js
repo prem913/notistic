@@ -11,7 +11,6 @@ function User (props){
     const [err,setErr]=useState('');
 
 useEffect(()=>{
-    console.log("mou")
     Fetchdata(setNotes,setErr);
 },[])
     function handlelogout(){

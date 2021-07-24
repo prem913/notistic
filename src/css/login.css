@@ -10,11 +10,11 @@
     display: block;
     background-color: var(--lgray);
     width: 400px;
-    height: 300px;
+    height: 350px;
     border-radius: 19px;
     border: 2px 2px 10px var(--gray);
     overflow: hidden;
-
+    transition: height 300ms;
 }
 .switch{
     position: relative;
