@@ -1,16 +1,26 @@
-import { useState ,useEffect} from 'react';
+import { useState } from 'react';
 import User from './components/user';
 import Login from "./components/login"
 import Header from './components/header'
 function App() {
   const [logged,setLog]=useState(false);
-  function  handlelog(p) {
+  const [userid,setUserid]=useState("");
+  
+  function  handlelog(p,id) {
+    setUserid(id);
     setLog(p);
   }
+  function getuserid(){
+    if(userid)
+    return userid;
+    else{
+      return "not assainged"
+    }
+    }
   return (
     <>
     {logged?"":<Header />}
-    {logged? <User setLog={handlelog}/>:<Login setLog={handlelog}/>}
+    {logged? <User getuserid={getuserid} setLog={handlelog}/>:<Login setLog={handlelog}/>}
     </>
   );
 }

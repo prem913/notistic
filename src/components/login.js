@@ -24,28 +24,35 @@ export default function Login(props){
             if(a==="login"){
                 let {res,err}=await Handlelogin(email,pass);
             if(res.message==="User found"){
-                props.setLog(true);
+                props.setLog(true,res.userId);
+            }
+            else if(res.message==="User not found"){
+                setErr("Username or password wrong!!");
+                setdisabled(false);
             }
             else{
-                setErr("Username or password wrong!!");
+                setErr("Could not connect to server!! "+err);
                 setdisabled(false);
             }
             }
             else{
                 let {res,err}=await Handlesignup(email,pass);
             if(res.message==="done"){
-                setErr("Successfully done")
+                setErr("Logging in")
                 let {res,err}=await Handlelogin(email,pass);
                 if(res.message==="User found"){
-                    props.setLog(true);
+                    props.setLog(true,res.userId);
                 }
-                setdisabled(false);
+                else{
+                    setErr(err);
+                }
             }
             else if(res.message==="already done"){
                 setErr("User already signedup")
+                setdisabled(false);
             }
             else{
-                setErr("signup failed!!")
+                setErr("signup failed!! "+err)
                 setdisabled(false);
             }
             }

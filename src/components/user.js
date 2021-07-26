@@ -6,22 +6,24 @@ import Err from "./Err";
 import Note from './Note'
 import {Fetchdata,Adddata, Deletedata} from '../backend/fetchdata';
 
-function User (props){
+function User ({getuserid,setLog}){
     const [notes,setNotes] = useState([]);
     const [err,setErr]=useState('');
 
 useEffect(()=>{
-    Fetchdata(setNotes,setErr);
+    Fetchdata(setNotes,setErr,getuserid());
 },[])
     function handlelogout(){
-        props.setLog(false);
+        setLog(false);
     }
     async function handleaddnotes(des){
         setErr("Adding");
+        console.log("user id"+getuserid())
         let date=new Date().toLocaleString();
         const newobj={
             "time" : date,
             "des" : des,
+            "userid":getuserid()
         }
         console.log("before")
         let d=await Adddata(newobj);
@@ -31,7 +33,7 @@ useEffect(()=>{
    async function handledelete(key){
        setErr("deleting...");
        await Deletedata(key);
-        Fetchdata(setNotes,setErr);
+        Fetchdata(setNotes,setErr,getuserid());
        setErr("deleted");
     }
     return(

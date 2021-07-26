@@ -1,6 +1,14 @@
 
-function fetchdata(setNotes,setErr){
-    fetch('http://localhost/notes').then(response=>response.json()).then(data=>setNotes(data)).catch(err=>setErr("Unable to get your Notes"));
+function fetchdata(setNotes,setErr,id){
+    fetch('http://localhost/notes',{
+      
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({"userid":id}),
+    })
+    .then(response=>response.json()).then(data=>setNotes(data)).catch(err=>setErr("Unable to get your Notes"+err));
 }
 async function adddata(obj){
      const d=await fetch('http://localhost/notes',{ 
@@ -29,7 +37,6 @@ async function deletedata(key){
     return e?e:"done";
 }
 async function handlelogin(email,password){
-  console.log("login");
   let err;
   let res=await fetch('http://localhost/login',{
       method:"Post",
@@ -44,7 +51,6 @@ async function handlelogin(email,password){
 
 }
 async function handlesignup(email,password){
-  console.log("password");
   let err;
   let res=await fetch('http://localhost/signup',{
       method:"Post",
