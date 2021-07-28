@@ -69,7 +69,7 @@ export default function Login(props){
                 </div>
                 
             {err && <Err text={err}></Err>}
-            <CSSTransition in={action} timeout={300} classNames="slideleft" unmountOnExit >
+            <CSSTransition in={action} timeout={400} classNames="slideleft" unmountOnExit >
                 <div className="box">
                 <h1 style={{textAlign:"center"}}>Login</h1>
             <form  onSubmit={(e)=>handlesubmit(e,value,pswd,"login")} action="/login" method="POST">
@@ -80,8 +80,10 @@ export default function Login(props){
                 </div>
                 </CSSTransition>
                 
-            <CSSTransition in={!action} timeout={300} classNames="slideright" unmountOnExit >
+            <CSSTransition in={!action} timeout={400} classNames="slideright" unmountOnExit >
+                <div className="box">
                 <Signup handlesubmit={handlesubmit} disabled={disabled} setErr={setErr}/>
+                </div>
                 </CSSTransition>
         </div>
             </div>

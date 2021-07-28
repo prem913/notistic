@@ -9,10 +9,9 @@ import {Fetchdata,Adddata, Deletedata} from '../backend/fetchdata';
 function User ({getuserid,setLog}){
     const [notes,setNotes] = useState([]);
     const [err,setErr]=useState('');
-
 useEffect(()=>{
     Fetchdata(setNotes,setErr,getuserid());
-},[])
+},[getuserid])
     function handlelogout(){
         setLog(false);
     }
