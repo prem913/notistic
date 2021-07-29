@@ -8,7 +8,8 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost:27017/notistic', {useNewUrlParser: true, useUnifiedTopology: true});
+const CONNECTION_URL= 'mongodb+srv://premchand:Prem2chand.@cluster0.2wwpe.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
+mongoose.connect(CONNECTION_URL, {useNewUrlParser: true, useUnifiedTopology: true});
 
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
