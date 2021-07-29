@@ -1,6 +1,6 @@
-
+const CONNECTION_URL="https://notisticserver.herokuapp.com/"
 function fetchdata(setNotes,setErr,id){
-    fetch('http://localhost/notes',{
+    fetch(CONNECTION_URL+'notes',{
       
       method: 'POST',
       headers: {
@@ -11,7 +11,7 @@ function fetchdata(setNotes,setErr,id){
     .then(response=>response.json()).then(data=>setNotes(data)).catch(err=>setErr("Unable to get your Notes"+err));
 }
 async function adddata(obj){
-     const d=await fetch('http://localhost/notes',{ 
+     const d=await fetch(CONNECTION_URL+'notes',{ 
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -24,7 +24,7 @@ async function adddata(obj){
 }
 async function deletedata(key){
     let e;
-    await fetch('http://localhost/notes',{
+    await fetch(CONNECTION_URL+'notes',{
         method:"DELETE",
         headers: {
           'Content-Type': 'application/json'
@@ -38,7 +38,7 @@ async function deletedata(key){
 }
 async function handlelogin(email,password){
   let err;
-  let res=await fetch('http://localhost/login',{
+  let res=await fetch(CONNECTION_URL+'login',{
       method:"Post",
       headers: {
         'Content-Type': 'application/json'
@@ -52,7 +52,7 @@ async function handlelogin(email,password){
 }
 async function handlesignup(email,password){
   let err;
-  let res=await fetch('http://localhost/signup',{
+  let res=await fetch(CONNECTION_URL+'signup',{
       method:"Post",
       headers: {
         'Content-Type': 'application/json'
