@@ -143,3 +143,12 @@ legend{
     text-align: end;
     width: 99%;
 }
+@media only screen and (max-width:450px) {
+    .notescontainer{
+        flex-wrap: nowrap;
+    }
+    .notes{
+        flex-basis: 100%;
+
+    }    
+}
