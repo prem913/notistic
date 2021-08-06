@@ -5,6 +5,7 @@
 /.pnp
 .pnp.js
 /server.js
+/productionbuild
 # testing
 /coverage
 
