@@ -1,5 +1,3 @@
-
-import '../css/main.css';
 function Notes(props){
     return(
         <>

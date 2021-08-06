@@ -1,28 +1,58 @@
-import { useState } from 'react';
-import User from './components/user';
-import Login from "./components/login"
+import Auth from "./components/auth";
 import Header from './components/header'
-function App() {
-  const [logged,setLog]=useState(false);
-  const [userid,setUserid]=useState("");
-  
-  function  handlelog(p,id) {
-    setUserid(id);
-    setLog(p);
+import User from './components/user/index'
+import './css/main.css'
+import UserService from './services/user'
+import React from "react";
+import auth from "./services/auth";
+import Alert from './components/Alert'
+class App extends React.Component{
+  constructor(props){
+    super(props);
+    this.state={
+      log:false,
+      msg:''
+    }
+    this.setLog=this.setLog.bind(this)
   }
-  function getuserid(){
-    if(userid)
-    return userid;
-    else{
-      return "not assainged"
+  setLog(flag){
+    if(!flag)
+    auth.logout();
+    this.setState({log:flag})
+  }  
+  async isLogged(){
+    if(auth.getCurrentUser()){
+    this.setState({msg:"Logging in"});
+    try{
+        await UserService.get();
+        return true;
     }
+    catch(err){
+      this.setState({msg:"Session expired please Login"});
+        return false;
     }
+  }
+  return false;
+    
+}
+async componentDidMount(){
+    let flag=await this.isLogged();
+    if(flag){
+      this.setState({log:true})
+    }
+  }
+  render(){
   return (
     <>
-    {logged?"":<Header />}
-    {logged? <User getuserid={getuserid} setLog={handlelog}/>:<Login setLog={handlelog}/>}
+    <Header logged={this.state.log} setLog={this.setLog}/>
+    {this.state.log?<User />:(
+    <>
+    <Alert msg={this.state.msg}/>
+    <Auth setLog={this.setLog}/>
+    </>
+    )}
     </>
   );
 }
-
+}
 export default App;
